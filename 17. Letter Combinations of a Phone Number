@@ -1,0 +1,27 @@
+class Solution {
+
+    public void helper(int i,String digits,String store[],List<String> ans,StringBuilder sb)
+    {
+        if(i==digits.length())
+        {
+            if(sb.length()!=0)
+            {
+                ans.add(sb.toString());
+            }
+            return;
+        }
+        int num=digits.charAt(i)-'0';
+        for(char c:store[num].toCharArray())
+        {
+            sb.append(c);
+            helper(i+1,digits,store,ans,sb);
+            sb.deleteCharAt(sb.length()-1);
+        }
+    }
+    public List<String> letterCombinations(String digits) {
+        List<String> ans=new ArrayList<>();
+        String store[]={"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+        helper(0,digits,store,ans,new StringBuilder());
+        return ans;
+    }
+}

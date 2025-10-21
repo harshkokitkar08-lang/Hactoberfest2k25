@@ -1,0 +1,25 @@
+class Solution {
+    public int lengthOfLongestSubstring(String str) {
+        if (str.length() == 0)
+            return 0;
+
+        HashMap<Character, Integer> map = new HashMap<>();
+        // Character -> Last seen index
+        int s = 0; // start of window
+        int max = 0;
+
+        for (int e = 0; e < str.length(); e++) {
+            char ch = str.charAt(e);
+
+            // If character was seen and is inside current window, move start
+            if (map.containsKey(ch) && map.get(ch) >= s) {
+                s = map.get(ch) + 1;
+            }
+
+            map.put(ch, e); // update last seen index
+            max = Math.max(max, e - s + 1); // update max after every step
+        }
+
+        return max;
+    }
+}
